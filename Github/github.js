@@ -92,18 +92,30 @@ async function GetAllCollabration(org,repository,status,NumberOfBranches,Protect
           let collabrators = ans.data[repo].login
           arr2.push(collabrators);
           let permission = ans.data[repo].permissions
-          if(permission.admin==true)
+          if(permission.admin==true && permission.pull==true && permission.push==true)
           {
-            arr2.push("admin");
+            arr2.push("admin/push/pull");
           }
-          if(permission.push==true)
+          else if(permission.admin==true && permission.pull==true)
           {
-            arr2.push("push");
+            arr2.push("admin/push");
           }
-          if(permission.pull==true)
+          else if(permission.admin==true && permission.pull==true)
           {
-            arr2.push("pull");
-          }        
+            arr2.push("admin/pull");
+          }  
+          else if(permission.pull==true && permission.push==true){
+            arr2.push("push/pull");
+          }   
+          else if(permission.admin==true){
+            arr2.push("admin")
+          }
+          else if(permission.pull==true){
+            arr2.push("pull")
+          }
+          else if(permission.push==true){
+            arr2.push("push")
+          }
            arr.push(arr2);    
            console.log(arr2)
         
